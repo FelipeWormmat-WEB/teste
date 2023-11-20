@@ -15,7 +15,7 @@
         </div>
         {% endif %}
 
-        <h1 class="text-center">Gráfico de Cotações</h1>
+        <h1 class="text-center">Cotação</h1>
 
         <div id="calc_ops" class="container col-xl-10 col-xxl-8 px-4 py-5">
             <div class="row align-items-center g-lg-5 py-5">
@@ -60,6 +60,7 @@
             var cambio = {{ cambio|safe }};
             var symbol = '{{ symbol }}';
             var data = cambio.map(function (item) {
+                console.log("batata: ", data)
                 return [new Date(item.date).getTime(), item.price];
             });
 

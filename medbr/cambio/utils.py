@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
 
-from .models import Currency, Cambio
+from cambio.models import Currency, Cambio
 
 
-def input(start_date, end_date, selected_currencie):
+def validate_input(start_date, end_date, selected_currencie):
     if not start_date or not end_date or not selected_currencie:
         return "Por favor, selecione data inicial, final e a moeda."
 
@@ -29,9 +29,9 @@ def input(start_date, end_date, selected_currencie):
     return None
 
 
-def currencies(start_date, end_date, selected_currencie):
+def currency_cambio(start_date, end_date, selected_currencie):
     currency = Currency.objects.filter(symbol=selected_currencie).first()
-    moedas = (
+    currency_quotes = (
         Cambio.objects.filter(
             target_currency=currency, date__range=[start_date, end_date]
         )
@@ -40,12 +40,12 @@ def currencies(start_date, end_date, selected_currencie):
     )
 
     # Convertendo os valores para o formato adequado para o gráfico
-    cambios = [
+    cambio = [
         {
-            "date": cambio["date"].strftime("%Y-%m-%d"),
-            "price": float(cambio["price"]),
+            "date": cambios["date"].strftime("%Y-%m-%d"),
+            "price": float(cambios["price"]),
         }
-        for cambio in list(moedas)
+        for cambios in list(currency_quotes)
     ]
 
-    return currency, cambios
+    return currency, cambio

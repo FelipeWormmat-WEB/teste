@@ -1,8 +1,7 @@
 from django.urls import path
-
-from .views import MoedasViews
-
+from cambio.views import ExchangeRatesView
 app_name = "cambio"
 
-
-urlpatterns = [path("", MoedasViews.as_view(), name="index")]
+urlpatterns = [
+    path("", ExchangeRatesView.as_view(), name="index"),
+    ]
